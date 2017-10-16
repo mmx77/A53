@@ -12,7 +12,7 @@ else
         echo "Miner process $MINER_PID killed"
 fi
 
-~/LABO/Miner/TEST/m-minerd_A53 -c ~/LABO/Miner/cfg.json -B > /tmp/log.miner 2>&1
+./TEST/m-minerd_A53 -c ./cfg.json -B > /tmp/log.miner 2>&1
 #/usr/bin/nice -n19 ~/LABO/Miner/TEST/m-minerd_A53 -c ~/LABO/Miner/cfg.json -B > /tmp/log.miner 2>&1
 #/usr/bin/nice -n19 ~/LABO/Miner/TEST/m-minerd_O3 -c ~/LABO/Miner/cfg.json -B > /tmp/log.miner 2>&1
 
