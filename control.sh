@@ -54,11 +54,11 @@ function calc_increased_cpu_use {
 
 
 function kill_miner {
-	/bin/bash ~/LABO/A53/kill_miner.sh
+	/bin/bash ./kill_miner.sh
 }
 
 function mine {
-        /bin/bash ~/LABO/A53/miner.sh 
+        /bin/bash ./miner.sh 
 }
 
 function sleep_x_mins {
