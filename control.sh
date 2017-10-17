@@ -36,7 +36,6 @@ function set_cpu_use {
 	sed -i "/cpu-efficiency/c\ \t$NEW_JSON_VAL" "$FILE"	
 }
 
-
 function reduce_cpu_use {
 	echo "reduce CPU usage"
 	local FILE=$(retrieve_cfg_file)
@@ -51,7 +50,6 @@ function calc_increased_cpu_use {
 	local NEW_CPU_USE=$(($CUR_CPU_USE+$CPU_USE_STEP))
 	echo "$NEW_CPU_USE"
 }
-
 
 function kill_miner {
 	/bin/bash ./kill_miner.sh
@@ -70,9 +68,7 @@ function sleep_x_mins {
 	fi
 }
 
-
 # MAIN CODE -----------------------
-
 #set -x
 # Infinite loop
 
