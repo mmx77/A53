@@ -30,10 +30,13 @@ function retrieve_cfg_file {
 }
 
 function set_cpu_use {
-	local FILE=$(retrieve_cfg_file)
-	# We expect cpu percentage when function is called
-	local NEW_JSON_VAL=$(echo '"'"cpu-efficiency"'" : "'"$1"'",' )
-	sed -i "/cpu-efficiency/c\ \t$NEW_JSON_VAL" "$FILE"	
+	if (($TESTING == $TRUE ));
+	then
+		local FILE=$(retrieve_cfg_file)
+		# We expect cpu percentage when function is called
+		local NEW_JSON_VAL=$(echo '"'"cpu-efficiency"'" : "'"$1"'",' )
+		sed -i "/cpu-efficiency/c\ \t$NEW_JSON_VAL" "$FILE"	
+	fi
 }
 
 function reduce_cpu_use {
