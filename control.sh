@@ -30,7 +30,7 @@ function retrieve_cfg_file {
 }
 
 function set_cpu_use {
-	if (($TESTING == $TRUE ));
+	if (($TESTING == $FALSE));
 	then
 		local FILE=$(retrieve_cfg_file)
 		# We expect cpu percentage when function is called
