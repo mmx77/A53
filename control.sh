@@ -3,6 +3,10 @@
 # GLOBAL VARIABLES ----------------
 source ./config.control
 
+
+# LOCAL VARIABLES
+LOW_TEMP_COUNTER=0
+
 # FUNCTIONS -----------------------
 function read_cpu_temp {
 	local TEMP=$(sudo cat /sys/devices/virtual/thermal/thermal_zone0/temp)
@@ -70,7 +74,15 @@ function sleep_x_mins {
 		/bin/sleep $1
 	fi
 }
+function check_cpu_speedup {
+	if (( $1<(($MAX_CPU_TEMP-$CPU_TEMP_HISTERESYS)) ));
+	then
+		echo "$TRUE"
+	else
+		echo "$FALSE"
+	fi
 
+}
 # MAIN CODE -----------------------
 #set -x
 # Infinite loop
@@ -94,6 +106,7 @@ do
 
 	if (($CPU_TEMP>=$MAX_CPU_TEMP));
 	then
+		LOW_TEMP_COUNTER=$(echo "0")
 		reduce_cpu_use
 		if (($DEBUG_LOGS==$TRUE));
 		then
@@ -104,28 +117,38 @@ do
 	       		kill_miner 
         		mine
 		fi
-	elif (( $CPU_TEMP<(($MAX_CPU_TEMP-$CPU_TEMP_HISTERESYS)) ));
+	elif (($(check_cpu_speedup $CPU_TEMP)==$TRUE)); 
 	then
-		NEW_CPU_USE=$(calc_increased_cpu_use)
-		if (($NEW_CPU_USE<=100));
-		then		
-			if (($DEBUG_LOGS==$TRUE));
-			then
-				echo "+CPU to:$NEW_CPU_USE. Reboot miner"
+
+		((LOW_TEMP_COUNTER++))	
+		if (($LOW_TEMP_COUNTER>=MAX_TIMES_LOW_TEMP));
+		then
+			LOW_TEMP_COUNTER=$(echo "0")
+			NEW_CPU_USE=$(calc_increased_cpu_use)
+			if (($NEW_CPU_USE<=100));
+			then		
+				if (($DEBUG_LOGS==$TRUE));
+				then
+					echo "+CPU to:$NEW_CPU_USE. Reboot miner"
+				fi
+				set_cpu_use $NEW_CPU_USE
+				if (($TESTING==$FALSE));
+				then
+		       			kill_miner 
+	        			mine
+				fi
+			else
+				if (($DEBUG_LOGS==$TRUE));
+				then
+					echo "CPU already set to MAX"
+				fi
 			fi
-			set_cpu_use $NEW_CPU_USE
-			if (($TESTING==$FALSE));
-			then
-	       			kill_miner 
-        			mine
-			fi
-		else
-			if (($DEBUG_LOGS==$TRUE));
-			then
-				echo "CPU already set to MAX"
-			fi
+		#else
+		#	echo "ENG. Counter didn reach the limit"
 		fi
+
 	else
+		LOW_TEMP_COUNTER=$(echo "0")
 		if (($DEBUG_LOGS==$TRUE));
 		then
 			echo "CPU temp in range"
