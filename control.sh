@@ -85,8 +85,9 @@ function check_cpu_speedup {
 }
 # MAIN CODE -----------------------
 #set -x
-# Infinite loop
+cd $APP_PATH
 
+# Infinite loop
 if (($TESTING==$FALSE));
 then
 	kill_miner
