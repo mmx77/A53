@@ -16,5 +16,5 @@ CONFIG_FILE="cfg.json"
 # MINER. GLOBAL VARIABLES -----------------
 # CPU TYPES ARE A53 and A7
 CPU_TYPE="A53"
-A53_MINER="m-minerd_A53"
-A7_MINER=""
+MINER_A53="m-minerd_A53"
+MINER_A7="m-minerd_A7_extreme1"
