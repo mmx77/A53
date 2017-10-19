@@ -85,8 +85,13 @@ function check_cpu_speedup {
 
 }
 
-function random_between_a_and_b {
-	return /usr/bin/shuf -i$1-$2 -n1
+function sleep_random_between_a_and_b {
+	SECONDS=$(/usr/bin/shuf -i$1-$2 -n1)
+	if (($DEBUG_LOGS==$TRUE));
+	then
+		echo "ENG. Sleep $SECONDS sec."
+	fi
+	/bin/sleep $SECONDS
 }
 # MAIN CODE -----------------------
 #set -x
