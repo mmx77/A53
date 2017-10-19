@@ -95,7 +95,7 @@ function sleep_random_between_a_and_b {
 }
 # MAIN CODE -----------------------
 #set -x
-
+sleep_random_between_a_and_b 0 $MAX_SECS_WAIT
 # Infinite loop
 if (($TESTING==$FALSE));
 then
