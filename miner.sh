@@ -21,7 +21,7 @@ function kill_process_by_PID {
 }
 
 # MAIN CODE -----------------------
-set -x
+#set -x
 
 if (($CPU_TYPE==$CPU_A7));
 then
