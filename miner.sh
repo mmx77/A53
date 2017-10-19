@@ -1,5 +1,6 @@
 #!/bin/bash
-# Load config
+# GLOBAL VARIABLES ----------------
+source ./config.control
 
 
 # First, kill miner if exists
