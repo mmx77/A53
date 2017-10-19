@@ -84,6 +84,10 @@ function check_cpu_speedup {
 	fi
 
 }
+
+function random_between_a_and_b {
+	return /usr/bin/shuf -i$1-$2 -n1
+}
 # MAIN CODE -----------------------
 #set -x
 
