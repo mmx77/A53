@@ -1,4 +1,5 @@
 #!/bin/bash
+cd ~/LABO/A53
 
 # GLOBAL VARIABLES ----------------
 source ./config.control
@@ -85,7 +86,6 @@ function check_cpu_speedup {
 }
 # MAIN CODE -----------------------
 #set -x
-cd $APP_PATH
 
 # Infinite loop
 if (($TESTING==$FALSE));
