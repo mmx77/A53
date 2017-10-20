@@ -20,28 +20,33 @@ function kill_process_by_PID {
 	return 0
 }
 
+function retrieve_HW_processor {
+	local PROCESSOR=$(cat /proc/cpuinfo | grep Processor | head -n 1 | awk '{ print $3 }')
+	echo "$PROCESSOR"
+}
+
+
 function retrieve_compiled_name {
-	if (($CPU_TYPE==$CPU_A7));
+	PROCESSOR=$(retrieve_HW_processor)
+	if (($PROCESSOR==$MNR_CPU_HW_A7));
 	then
-        	echo "$MINER_A7"
-	elif (($CPU_TYPE==$CPU_A53));
+        	echo "$MNR_COMPILED_A7"
+	elif (($PROCESSOR==$MNR_CPU_HW_A53));
 	then
-        	echo "$MINER_A53"
+        	echo "$MNR_COMPILED_A53"
 	fi
 }
 
 function update_config_file {
 	#local NEW_CONFIG_LINE=$(echo '"'"$1"'"="'"$2"'"' )
 	local NEW_CONFIG_LINE=$(echo "$1="'"'"$2"'"' )
-	sed -i "/$1/c\\$NEW_CONFIG_LINE" "$CONFIG_FILE_SCRIPTS"
+	sed -i "0,/$1/c\\$NEW_CONFIG_LINE" "$CONFIG_FILE_SCRIPTS"
 }
 
 # MAIN CODE -----------------------
 #set -x
 
-# Retrieve name of compiled miner
 MNR_NAME=$(retrieve_compiled_name)
-
 # Update config file for the rest of scripts
 update_config_file $MNR_LABEL_NAME_OF_MINER $MNR_NAME
 
@@ -50,7 +55,6 @@ update_config_file $MNR_LABEL_NAME_OF_MINER $MNR_NAME
 MNR_PID=$(get_PID_by_name $MNR_NAME)
 kill_process_by_PID $MNR_PID
 
-# Launch new miner
 cd TEST
 ./$MNR_NAME -c ../cfg.json -B > $MNR_LOG_FILE 2>&1
 cd ..
@@ -58,4 +62,3 @@ cd ..
 MNR_PID=$(get_PID_by_name $MNR_NAME)
 echo "new $MNR_NAME instance running with PID $MNR_PID"
 exit 0
-
