@@ -1,11 +1,11 @@
 #!/bin/bash
-# First, kill miner if exists
+# GLOBAL VARIABLES ----------------
+source ./config.control
 
 # Activate debugging
 #set -x
 
-
-MINER_NAME="minerd"
+# MINER_NAME is kept in config file
 MINER_PID=$(/bin/ps -ef | /bin/grep $MINER_NAME | /bin/grep -v grep | awk '{ print $2 }')
 
 if [ -z $MINER_PID ]
