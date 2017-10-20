@@ -15,11 +15,11 @@ CONFIG_FILE="cfg.json"
 CONFIG_FILE_SCRIPTS="config.control"
 
 # MINER. GLOBAL VARIABLES -----------------
-LOG_FILE="/tmp/log.miner"
+MNR_LOG_FILE="/tmp/log.miner"
 # CPU TYPES ARE A53 and A7
 CPU_A7="A7"
 CPU_A53="A53"
 CPU_TYPE=$CPU_A7
 MINER_A53="m-minerd_A53"
 MINER_A7="m-minerd_A7_extreme1"
-MINER_LABEL_MINERNAME="MINER_NAME"
+MNR_LABEL_NAME_OF_MINER="MINER_NAME"
