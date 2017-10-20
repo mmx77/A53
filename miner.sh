@@ -20,26 +20,39 @@ function kill_process_by_PID {
 	return 0
 }
 
+function retrieve_compiled_name {
+	if (($CPU_TYPE==$CPU_A7));
+	then
+        	echo "$MINER_A7"
+	elif (($CPU_TYPE==$CPU_A53));
+	then
+        	echo "$MINER_A53"
+	fi
+}
+
+function update_config_file {
+	#local NEW_CONFIG_LINE=$(echo '"'"$1"'"="'"$2"'"' )
+	local NEW_CONFIG_LINE=$(echo "$1="'"'"$2"'"' )
+	sed -i "/$1/c\\$NEW_CONFIG_LINE" "$CONFIG_FILE_SCRIPTS"
+}
+
 # MAIN CODE -----------------------
 #set -x
 
-if (($CPU_TYPE==$CPU_A7));
-then
-        MINER_NAME=$(echo "$MINER_A7")
-elif (($CPU_TYPE==$CPU_A53));
-then
-        MINER_NAME=$(echo "$MINER_A53")
-fi
+MNR_NAME=$(retrieve_compiled_name)
+# Update config file for the rest of scripts
+update_config_file $MNR_LABEL_NAME_OF_MINER $MNR_NAME
 
 # Kill miner if exists
 #MINER_NAME="minerd"
-MINER_PID=$(get_PID_by_name $MINER_NAME)
-kill_process_by_PID $MINER_PID
+MNR_PID=$(get_PID_by_name $MNR_NAME)
+kill_process_by_PID $MNR_PID
 
 cd TEST
-./$MINER_NAME -c ../cfg.json -B > $LOG_FILE 2>&1
+./$MNR_NAME -c ../cfg.json -B > $MNR_LOG_FILE 2>&1
 cd ..
 
-MINER_PID=$(/bin/ps -ef | /bin/grep $MINER_NAME | /bin/grep -v grep | awk '{ print $2 }')
-echo "new $MINER_NAME instance running with PID $MINER_PID"
+MINER_PID=$(get_PID_by_name $MNR_NAME)
+echo "new $MNR_NAME instance running with PID $MNR_PID"
 exit 0
+
