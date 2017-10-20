@@ -39,8 +39,9 @@ function retrieve_compiled_name {
 
 function update_config_file {
 	#local NEW_CONFIG_LINE=$(echo '"'"$1"'"="'"$2"'"' )
+	local OLD_CONFIG_LINE=$(echo "$1=")
 	local NEW_CONFIG_LINE=$(echo "$1="'"'"$2"'"' )
-	sed -i "0,/$1/c\\$NEW_CONFIG_LINE" "$CONFIG_FILE_SCRIPTS"
+	sed -i "/$OLD_CONFIG_LINE/c\\$NEW_CONFIG_LINE" "$CONFIG_FILE_SCRIPTS"
 }
 
 # MAIN CODE -----------------------
