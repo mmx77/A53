@@ -12,6 +12,7 @@ CUR_CPU_USE=100
 CPU_USE_STEP=3
 MINS_TO_SLEEP=5
 CONFIG_FILE="cfg.json"
+CONFIG_FILE_SCRIPTS="config.control"
 
 # MINER. GLOBAL VARIABLES -----------------
 LOG_FILE="/tmp/log.miner"
