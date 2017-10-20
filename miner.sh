@@ -25,13 +25,12 @@ function retrieve_HW_processor {
 	echo "$PROCESSOR"
 }
 
-
 function retrieve_compiled_name {
 	PROCESSOR=$(retrieve_HW_processor)
-	if (($PROCESSOR==$MNR_CPU_HW_A7));
+	if [ "$PROCESSOR" == "$MNR_CPU_HW_A7" ];
 	then
         	echo "$MNR_COMPILED_A7"
-	elif (($PROCESSOR==$MNR_CPU_HW_A53));
+	elif [ "$PROCESSOR" == "$MNR_CPU_HW_A53" ];
 	then
         	echo "$MNR_COMPILED_A53"
 	fi
