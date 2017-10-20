@@ -39,7 +39,9 @@ function update_config_file {
 # MAIN CODE -----------------------
 #set -x
 
+# Retrieve name of compiled miner
 MNR_NAME=$(retrieve_compiled_name)
+
 # Update config file for the rest of scripts
 update_config_file $MNR_LABEL_NAME_OF_MINER $MNR_NAME
 
@@ -48,11 +50,12 @@ update_config_file $MNR_LABEL_NAME_OF_MINER $MNR_NAME
 MNR_PID=$(get_PID_by_name $MNR_NAME)
 kill_process_by_PID $MNR_PID
 
+# Launch new miner
 cd TEST
 ./$MNR_NAME -c ../cfg.json -B > $MNR_LOG_FILE 2>&1
 cd ..
 
-MINER_PID=$(get_PID_by_name $MNR_NAME)
+MNR_PID=$(get_PID_by_name $MNR_NAME)
 echo "new $MNR_NAME instance running with PID $MNR_PID"
 exit 0
 
