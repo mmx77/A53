@@ -60,7 +60,7 @@ MNR_PID=$(get_PID_by_name $MNR_NAME)
 kill_process_by_PID $MNR_PID
 
 cd TEST
-./$MNR_NAME -c ../cfg.json -B > $MNR_LOG_FILE 2>&1
+./$MNR_NAME -c ../$MNR_CONFIG_FILE -B > $MNR_LOG_FILE 2>&1
 cd ..
 
 MNR_PID=$(get_PID_by_name $MNR_NAME)
