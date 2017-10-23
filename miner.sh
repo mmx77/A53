@@ -52,10 +52,11 @@ function update_config_file {
 #set -x
 
 MNR_NAME=$(retrieve_compiled_name)
-# Update config file for the rest of scripts, if necessary
+# Update config file for the rest of scripts
 update_config_file $MNR_LABEL_NAME_OF_MINER $MNR_NAME
 
 # Kill miner if exists
+#MINER_NAME="minerd"
 MNR_PID=$(get_PID_by_name $MNR_NAME)
 kill_process_by_PID $MNR_PID
 
