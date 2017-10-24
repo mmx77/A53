@@ -36,7 +36,7 @@ function update_config_file {
 }
 
 # MAIN CODE -----------------------
-set -x
+#set -x
 
 MNR_NAME=$(retrieve_compiled_name)
 # Update config file for the rest of scripts
