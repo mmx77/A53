@@ -21,7 +21,6 @@ function kill_process_by_name {
 	then
         	echo "No Process $1 running. Nothing to be killed"
 	else
-	        echo "$MINER_NAME with PID $MINER_PID"
         	/bin/kill  $PROCESS_PID
 		/bin/sleep 1
         	/bin/kill  -9 $PROCESS_PID
