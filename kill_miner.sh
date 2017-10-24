@@ -2,20 +2,14 @@
 # GLOBAL VARIABLES ----------------
 source ./config.control
 
+# Import common functions to kill processes
+source ./functions_kill
+
 # Activate debugging
 #set -x
 
 # MINER_NAME is kept in config file
-MINER_PID=$(/bin/ps -ef | /bin/grep $MINER_NAME | /bin/grep -v grep | awk '{ print $2 }')
-
-if [ -z $MINER_PID ]
-then
-        echo "No Process $MINER_NAME running. Nothing to be killed"
-else
-        echo "$MINER_NAME with PID $MINER_PID"
-        /bin/kill -9 $MINER_PID
-        echo "Killed"
-fi
+kill_process_by_name $MINER_NAME
 
 # Stop debugging
 #set +x
