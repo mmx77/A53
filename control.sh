@@ -9,7 +9,7 @@ source ./config.control
 LOW_TEMP_COUNTER=0
 
 # FUNCTIONS -----------------------
-function read_cpu_temp {
+function read_instant_cpu_temp {
 	local TEMP=$(sudo cat /sys/devices/virtual/thermal/thermal_zone0/temp)
 	if (( $TEMP > 1000 ));
 	then
@@ -17,6 +17,16 @@ function read_cpu_temp {
 	else
 		echo "$TEMP"
 	fi
+}
+
+function read_avg_cpu_temp {
+	local TEMPERATURE=0
+	#for i in {0..2};
+		for ((i=0; i<$AVG_NUM_TEMP_READS; i++)); do
+		TEMPERATURE=$(( TEMPERATURE+$(read_instant_cpu_temp) ))
+		sleep 1
+	done
+	echo "$((TEMPERATURE/AVG_NUM_TEMP_READS))"
 }
 
 function read_cur_cpu_use {
@@ -107,7 +117,7 @@ while true
 do
 	sleep_x_mins $MINS_TO_SLEEP
 	DATETIME=$(date)
-	CPU_TEMP=$(read_cpu_temp)
+	CPU_TEMP=$(read_avg_cpu_temp)
 	if (($DEBUG_LOGS==$TRUE));
 	then
 		echo "$DATETIME"
