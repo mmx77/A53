@@ -7,8 +7,9 @@ If not installed previously, install:
 >sudo apt-get install libcurl4-openssl-dev libjansson-dev
 
 
->chmod +x *.sh
->chmod +x ./TEST/m-minerd_*
+chmod +x *.sh
+
+chmod +x ./TEST/m-minerd_*
 
 
 Command to execute it:
