@@ -1,5 +1,5 @@
 {
-        "url" : "stratum+tcp://eu1.minerclaim.net:3333",
+        "url" : "stratum+tcp://xmg.minerclaim.net:7008",
 	"algo" : "m7mhash",
         "user" : "picapica.orange1",
         "pass" : "000000",
